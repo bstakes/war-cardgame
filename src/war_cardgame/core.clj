@@ -1,4 +1,5 @@
-(ns war-cardgame.core)
+(ns war-cardgame.core
+  (:gen-class))
 
 (def ranks [2 3 4 5 6 7 8 9 10 :jack :queen :king :ace])
 (def suits [:clubs :diamonds :hearts :spades])
@@ -78,14 +79,15 @@
       (if (game-over? p1 p2)
         (str "Player " (if (pos? (count p1)) "1" "2") " wins!")
         (let [[p1 p2] (play-turn p1 p2)]
-          (do
-            (println turn)
-            (println (count p1) (count p2))
-            (recur p1 p2 (inc turn))))))))
+          (recur p1 p2 (inc turn)))))))
 
 (defn war
   []
   (play-game (shuffle deck)))
+
+(defn -main
+  [& args]
+  (println (war)))
 
 ;; a game looks like
 ;; shuffle - randomize order of cards in a deck
